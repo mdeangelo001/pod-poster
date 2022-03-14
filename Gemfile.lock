@@ -1,0 +1,57 @@
+PATH
+  remote: .
+  specs:
+    pod-poster (0.1.0)
+      feedjira (~> 3.2.1)
+      httparty (~> 0.20.0)
+      nokogiri (~> 1.13.3)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    crass (1.0.6)
+    diff-lcs (1.5.0)
+    feedjira (3.2.1)
+      loofah (>= 2.3.1)
+      sax-machine (>= 1.0)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
+    loofah (2.15.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.5.9)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
+    mini_portile2 (2.8.0)
+    multi_xml (0.6.0)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
+    racc (1.6.0)
+    rake (12.3.3)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
+    sax-machine (1.3.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  pod-poster!
+  rake (~> 12.0)
+  rspec (~> 3.0)
+
+BUNDLED WITH
+   2.1.4

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'forwardable'
+require 'httparty'
+require 'feedjira'
+require 'nokogiri'
 
 module Pod
   module Poster
@@ -8,6 +11,22 @@ module Pod
       extend Forwardable
 
       def_delegators :command, :run
+
+      def get_feed(url)
+        HTTParty.get(url).body
+      end
+
+      def parse_feed_entries(xml)
+        Feedjira.parse(xml).entries.map { |e| e.to_h }
+      end
+
+      def trim_feed!(entries)
+        entries.map! { |e| e.select{|k,v| ['title', 'summary', 'published', 'url'].include?(k) } }
+      end
+
+      def sort_feed!(entries)
+        entries.sort! { |x,y| x['published'] <=> y['published'] }
+      end
 
       # Execute this command
       #

@@ -18,6 +18,18 @@ module Pod
         puts "v#{Pod::Poster::VERSION}"
       end
       map %w(--version -v) => :version
+
+      desc 'generate [CONFIG_NAME]', 'Command description...'
+      method_option :help, aliases: '-h', type: :boolean,
+                           desc: 'Display usage information'
+      def generate(configName = nil)
+        if options[:help]
+          invoke :help, ['generate']
+        else
+          require_relative 'commands/generate'
+          Pod::Poster::Commands::Generate.new(configName, options).execute
+        end
+      end
     end
   end
 end
