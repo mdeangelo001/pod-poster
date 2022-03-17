@@ -29,4 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'httparty', '~> 0.20.0'
   spec.add_dependency 'feedjira', '~> 3.2.1'
   spec.add_dependency 'nokogiri', '~> 1.13.3'
+  spec.add_dependency 'koala', '~> 3.1.0'
+  spec.add_dependency 'omniauth-facebook', '~> 9.0.0'
 end
