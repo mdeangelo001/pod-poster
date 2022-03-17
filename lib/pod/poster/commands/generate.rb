@@ -86,18 +86,17 @@ module Pod
 
           doc = <<~EOF
           #{entry['url']}
-          ## #{entry['title']}
+          #{entry['title']}
 
           The latest entry has entered the vault i#{entry['summary'][1..].strip}
 
-          > #{verse_ref}
+          #{verse_ref}
 
           Related Movie: #{movie_ref}
 
-          *You can support the important work of The Omnibus Project here
-          [https://www.patreon.com/omnibusproject/](https://www.patreon.com/omnibusproject/)
-          and find merch at
-          [https://www.omnibusproject.com/store](https://www.omnibusproject.com/store)*
+          You can support the important work of The Omnibus Project here \
+          https://www.patreon.com/omnibusproject/ and find merch at \
+          https://www.omnibusproject.com/store
           EOF
 
           output.puts doc
