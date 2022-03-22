@@ -15,6 +15,8 @@ module Pod
             verse = md[3]
             book =
               case book
+                when 'PR'
+                  'Proverbs'
                 when '1S'
                   '1Samuel'
                 when '2S'
@@ -60,18 +62,18 @@ module Pod
               verse_ref = "#{bible_verse_data[:text].strip} - #{bible_verse_data[:reference]}"
             end
           end
-          return verse
+          return verse_ref
         end
 
         def get_movie(summary)
           md = /Certificate #(\d{1,})/.match summary
           movie_ref = 'No match found'
           if md
-            movie_ref = "Not movie found for #{md[1]}"
+            movie_ref = "No movie found for #{md[1]}"
             html = HTTParty.get("https://www.filmsonsuper8.com/censorship/mpaa-film-numbers-52000.html").body
             document = Nokogiri::HTML.parse(html)
             result = document.xpath("//table/tr[./td[text()='#{md[1]}']]/td").map {|n| n.text}
-            movie_ref = "#{result[2]} (#{result[0]})" unless result.empty?
+            movie_ref = "#{result[2]} (#{result[0]})" unless result.empty? || result[0].empty?
           end
           return movie_ref
         end
@@ -80,13 +82,9 @@ module Pod
           doc = <<~EOF
           #{entry['url']}
           #{entry['title']}
-
           The latest entry has entered the vault i#{entry['summary'][1..].strip}
-
           #{get_verse(entry['title'])}
-
           Related Movie: #{get_movie(entry['summary'])}
-
           You can support the important work of The Omnibus Project here \
           https://www.patreon.com/omnibusproject/ and find merch at \
           https://www.omnibusproject.com/store
