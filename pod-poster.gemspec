@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.add_dependency 'thor', '~> 0.20.3'
   spec.add_dependency 'httparty', '~> 0.20.0'
   spec.add_dependency 'feedjira', '~> 3.2.1'
   spec.add_dependency 'nokogiri', '~> 1.13.3'
