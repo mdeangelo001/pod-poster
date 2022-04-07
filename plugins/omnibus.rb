@@ -15,6 +15,8 @@ module Pod
             verse = md[3]
             book =
               case book
+                when 'IS'
+                  'Isaiah'
                 when 'PR'
                   'Proverbs'
                 when '1S'
