@@ -152,8 +152,8 @@ module Pod
                   book
               end
 
-            verse_ref = "Not found for https://bible-api.com/#{book}+#{chapter}:#{verse}" 
-            bible_verse = HTTParty.get("https://bible-api.com/#{book}+#{chapter}:#{verse}").body
+            verse_ref = "Not found for https://bible-api.com/#{book}+#{chapter}:#{verse}?translation=kjv" 
+            bible_verse = HTTParty.get("https://bible-api.com/#{book}+#{chapter}:#{verse}?translation=kjv").body
             bible_verse_data = JSON.parse(bible_verse,{:symbolize_names => true})
             if bible_verse_data[:reference]
               verse_ref = "#{bible_verse_data[:text].strip.gsub(/\s+/, " ")} - #{bible_verse_data[:reference]}"
