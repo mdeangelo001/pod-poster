@@ -9,7 +9,7 @@ module Pod
 
         def get_verse(title)
           verse_ref = nil
-          md = /Entry \d{1,}\.(\d*[a-zA-Z]{1,2})(\d{1,})(\d{2})/.match title
+          md = /Entry \d{1,}\.(\w{2})(\d{1,})(\d{2})/.match title
           if md
             book = md[1]
             chapter = md[2]
