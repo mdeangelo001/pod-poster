@@ -195,7 +195,7 @@ module Pod
         end
 
         def all_movies
-          doc = File.realdirpath('mpaa-certs.csv',File.dirname(__FILE__))
+          doc = File.new File.realdirpath('mpaa-certs.csv',File.dirname(__FILE__))
           return CSV.parse(doc, headers: true)
         end
       end
