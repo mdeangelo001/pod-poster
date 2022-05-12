@@ -16,7 +16,7 @@ module Pod
             verse = md[3]
             book =
               case book
-		when 'GN'
+		when /G[EN]/
 		  'Genesis'
 		when 'EX'
 		  'Exodus'
