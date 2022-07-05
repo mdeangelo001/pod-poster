@@ -22,7 +22,7 @@ module Pod
           entries = parse_feed_entries(xml)
           trim_feed!(entries)
           sort_feed!(entries)
-          entry = entries.last
+          entry = entries[@options[:episode]]
 
           output.puts plugin.generate entry
         end

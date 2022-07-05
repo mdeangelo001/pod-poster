@@ -22,6 +22,8 @@ module Pod
       desc 'generate [CONFIG_NAME]', 'Command description...'
       method_option :help, aliases: '-h', type: :boolean,
                            desc: 'Display usage information'
+      method_option :episode, type: :numeric, default: -1,
+        desc: 'Episode to fetch: 1 for first, -1 for most recent'
       def generate(configName = nil)
         if options[:help]
           invoke :help, ['generate']
