@@ -164,26 +164,52 @@ module Pod
 
         def get_movie(summary)
           md = /Certi*ficate #(\d{1,})/.match summary
-          movie_ref = 'No match found'
-          if md
-            movie_ref = "No movie found for #{md[1]}"
-            rows = all_movies.select { |r| r["Certificate"] == md[1] }
-            if rows.length > 0
-              result = rows.first
-              movie_ref = "#{result['Name']} (#{result['Year']})"
-            else
-              html = HTTParty.get("https://www.filmsonsuper8.com/censorship/mpaa-film-numbers-52000.html").body
-              document = Nokogiri::HTML.parse(html)
-              result = document.xpath("//table/tr[./td[text()='#{md[1]}']]/td").map {|n| n.text}
-              movie_ref = "#{result[2]} (#{result[0]})" unless result.empty? || result[0].empty?
-            end
+          if !md
+            'No certificate # found'
+          else
+            cert_number = md[1]
+            google_search_movie(cert_number) ||
+              local_file_search_movie(cert_number) ||
+              filmsonsuper8_search_movie(cert_number) ||
+              "No movie found for #{cert_number}"
           end
-          return movie_ref
+        end
+
+        def local_file_search_movie(cert_number)
+          rows = all_movies.select { |r| r["Certificate"] == cert_number}
+          return nil if rows.empty?
+          result = rows.first
+          "#{result['Name']} (#{result['Year']})"
+        end
+
+        def filmsonsuper8_search_movie(cert_number)
+          html = HTTParty.get("https://www.filmsonsuper8.com/censorship/mpaa-film-numbers-52000.html").body
+          document = Nokogiri::HTML.parse(html)
+          result = document.xpath("//table/tr[./td[text()='#{cert_number}']]/td").map {|n| n.text}
+          return nil if (result.empty? || result[0].empty?)
+          "#{result[2]} (#{result[0]})"
+        end
+
+        def google_search_movie(cert_number)
+          google_string = "https://customsearch.googleapis.com/customsearch/v1?" +
+            "c2coff=0&" +
+            "cx=#{File.read("#{File.dirname(__FILE__)}/google-search-engine.txt")}&" +
+            "exactTerms=certificate%20%23#{cert_number}&" +
+            "filter=1&" +
+            "lr=lang_en&" +
+            "num=1&" +
+            "key=#{File.read("#{File.dirname(__FILE__)}/google-search-api-key.txt")}"
+          google_result_doc = HTTParty.get(google_string, format: :plain, headers: { 'Accept' => 'application/json' })
+          google_result = JSON.parse(google_result_doc, symbolize_names: true)
+          return nil if google_result[:items].empty?
+          title = google_result[:items].first[:title]
+          md = /(.*) - IMDb/.match title
+          return nil unless md
+          md[1]
         end
 
         def generate(entry)
           doc = <<~EOF
-          #{entry['url']}
           #{entry['title']}
           The latest entry has entered the vault i#{entry['summary'][1..].strip}
           #{get_verse(entry['title'])}
@@ -191,6 +217,7 @@ module Pod
           You can support the important work of The Omnibus Project here \
           https://www.patreon.com/omnibusproject/ and find merch at \
           https://www.omnibusproject.com/store
+          #{entry['url']}
           EOF
         end
 

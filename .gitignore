@@ -6,6 +6,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+/plugins/google-search-api-key.txt
+/plugins/google-search-engine.txt
 
 # rspec failure tracking
 .rspec_status
