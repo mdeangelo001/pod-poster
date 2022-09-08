@@ -201,7 +201,7 @@ module Pod
             "key=#{File.read("#{File.dirname(__FILE__)}/google-search-api-key.txt")}"
           google_result_doc = HTTParty.get(google_string, format: :plain, headers: { 'Accept' => 'application/json' })
           google_result = JSON.parse(google_result_doc, symbolize_names: true)
-          return nil if google_result[:items].empty?
+          return nil if (google_result[:items].nil? || google_result[:items].empty?)
           title = google_result[:items].first[:title]
           md = /(.*) - IMDb/.match title
           return nil unless md
