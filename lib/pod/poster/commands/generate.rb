@@ -23,6 +23,7 @@ module Pod
           trim_feed!(entries)
           sort_feed!(entries)
           entry = entries[@options[:episode]]
+          parse_feed_entry!(entry)
 
           output.puts plugin.generate entry
         end

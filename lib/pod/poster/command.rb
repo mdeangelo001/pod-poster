@@ -28,6 +28,13 @@ module Pod
         entries.sort! { |x,y| x['published'] <=> y['published'] }
       end
 
+      # The summary is wrapped in <div> tags that need to be removed.
+      def parse_feed_entry!(entry)
+        doc = Nokogiri::HTML(entry['summary'])
+        entry['summary'] = doc.text
+        entry
+      end
+
       # Execute this command
       #
       # @api public
