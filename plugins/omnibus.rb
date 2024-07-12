@@ -59,7 +59,7 @@ module Pod
 		when 'EC'
 		  'Ecclesiastes'
 		when 'SS'
-		  'Song of Solomon'
+		  'Song+of+Solomon'
 		when 'IS'
 		  'Isaiah'
 		when 'JE'
