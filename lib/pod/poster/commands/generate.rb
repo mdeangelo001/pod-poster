@@ -16,8 +16,8 @@ module Pod
           require_relative '../../../../plugins/omnibus'
           plugin = Pod::Poster::Plugins::Omnibus.new
 
-          #@default_url = 'https://www.omnibusproject.com/rss'
-          @default_url = 'https://audioboom.com/channels/5127257.rss'
+          @default_url = 'https://www.omnibusproject.com/rss'
+          #@default_url = 'https://audioboom.com/channels/5127257.rss'
 
           xml = get_feed(@default_url)
           entries = parse_feed_entries(xml)
