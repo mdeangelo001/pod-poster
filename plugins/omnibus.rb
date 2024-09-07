@@ -208,6 +208,14 @@ module Pod
           md[1]
         end
 
+        def alt_url(title)
+          url = String.new title
+          url.downcase!
+          url.gsub!(/[^a-z0-9 ]/, '')
+          url.gsub!(/ /, '-')
+          "https://www.omnibusproject.com/episodes/" + url
+        end
+
         def generate(entry)
           doc = <<~EOF
           #{entry['title']}
@@ -217,7 +225,7 @@ module Pod
           You can support the important work of The Omnibus Project here \
           https://www.patreon.com/omnibusproject/ and find merch at \
           https://www.omnibusproject.com/store
-          #{entry['url']}
+          #{alt_url(entry['title'])}
           EOF
         end
 
