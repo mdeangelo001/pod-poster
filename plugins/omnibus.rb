@@ -211,7 +211,7 @@ module Pod
         def alt_url(title)
           url = String.new title
           url.downcase!
-          url.gsub!(/[^a-z0-9 ]/, '')
+          url.gsub!(/[^a-z0-9 -]/, '')
           url.gsub!(/ /, '-')
           "https://www.omnibusproject.com/episodes/" + url
         end
